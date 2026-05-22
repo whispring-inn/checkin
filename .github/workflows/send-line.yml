@@ -1,0 +1,24 @@
+name: Send LINE Message
+
+on:
+  workflow_dispatch:
+    inputs:
+      message:
+        description: 'Message'
+        required: true
+        type: string
+      user_id:
+        description: 'LINE User ID'
+        required: true
+        type: string
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send LINE message
+        run: |
+          curl -s -X POST https://api.line.me/v2/bot/message/push \
+            -H "Authorization: Bearer ${{ secrets.LINE_CHANNEL_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d "{\"to\":\"${{ github.event.inputs.user_id }}\",\"messages\":[{\"type\":\"text\",\"text\":\"${{ github.event.inputs.message }}\"}]}"
