@@ -1,11 +1,67 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-TW">
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="refresh" content="0; url=https://whispring.notion.site/Self-Check-in-Guide-Whispring-Inn-25d4ec3964c58097bdf0d9c27104152d?pvs=143">
-<title>春喃日光 入住指引</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>春喃日光 Whispring Inn｜入住說明</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;background:#faf8f4;color:#333;padding:20px;max-width:540px;margin:0 auto}
+    .header{text-align:center;padding:24px 0 16px;border-bottom:1px solid #e8e0d5;margin-bottom:20px}
+    .logo{font-size:1.4em;font-weight:bold;color:#7a6152}
+    .sub{color:#aaa;font-size:.85em;margin-top:4px}
+    .card{background:#fff;border-radius:14px;padding:20px;margin:14px 0;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+    .label{font-size:.75em;color:#aaa;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+    .code{font-size:2em;font-weight:700;color:#7a6152;letter-spacing:4px;text-align:center;padding:12px;background:#faf0e8;border-radius:10px}
+    h2{font-size:1em;color:#7a6152;margin-bottom:14px}
+    .step{display:flex;gap:12px;margin:10px 0;align-items:flex-start}
+    .num{width:26px;height:26px;background:#7a6152;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8em;flex-shrink:0;margin-top:2px}
+    .txt{line-height:1.6;font-size:.95em}
+    .note{background:#fff8f0;border-left:3px solid #e8a87c;padding:12px 14px;border-radius:0 8px 8px 0;font-size:.88em;color:#666;margin:12px 0;line-height:1.6}
+    .footer{text-align:center;color:#ccc;font-size:.78em;margin-top:28px;padding-bottom:24px;line-height:1.8}
+  </style>
 </head>
 <body>
-<p>正在跳轉入住指引，請稍候...<br><a href="https://whispring.notion.site/Self-Check-in-Guide-Whispring-Inn-25d4ec3964c58097bdf0d9c27104152d?pvs=143">點我直接前往</a></p>
+  <div class="header">
+    <div class="logo">春喃日光</div>
+    <div class="sub">Whispring Inn</div>
+  </div>
+
+  <div class="card">
+    <div class="label">您的房間</div>
+    <div class="code" id="room">—</div>
+  </div>
+
+  <div class="card">
+    <h2>🗝️ 取鑰匙（鑰匙盒密碼）</h2>
+    <div class="code" id="box">—</div>
+    <div class="note">鑰匙盒位於一樓大廳入口右側，輸入密碼後取出房卡。</div>
+  </div>
+
+  <div class="card">
+    <h2>🚪 房門密碼</h2>
+    <div class="code" id="door">—</div>
+    <div class="note">直接在房門鍵盤輸入密碼，最後按 <strong>#</strong> 確認。</div>
+  </div>
+
+  <div class="card">
+    <h2>📋 入住步驟</h2>
+    <div class="step"><div class="num">1</div><div class="txt">到一樓鑰匙盒輸入密碼，取出房卡</div></div>
+    <div class="step"><div class="num">2</div><div class="txt">搭電梯至您的房間樓層</div></div>
+    <div class="step"><div class="num">3</div><div class="txt">在房門鍵盤輸入開門密碼，按 # 確認</div></div>
+    <div class="step"><div class="num">4</div><div class="txt">入住愉快！有任何問題請聯繫房東 🙂</div></div>
+  </div>
+
+  <div class="footer">
+    春喃日光 Whispring Inn<br>
+    Tel / LINE：請參考訂房確認信
+  </div>
+
+  <script>
+    const p = new URLSearchParams(location.search);
+    document.getElementById('room').textContent = p.get('r') ? p.get('r') + ' 號房' : '—';
+    document.getElementById('door').textContent = p.get('d') || '—';
+    document.getElementById('box').textContent  = p.get('b') || '—';
+  </script>
 </body>
 </html>
