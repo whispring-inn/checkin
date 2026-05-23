@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>春喃日光 Whispring Inn｜付款方式</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;background:#faf8f4;color:#333;padding:20px;max-width:540px;margin:0 auto}
+    .header{text-align:center;padding:24px 0 16px;border-bottom:1px solid #e8e0d5;margin-bottom:20px}
+    .logo{font-size:1.4em;font-weight:bold;color:#7a6152}
+    .sub{color:#aaa;font-size:.85em;margin-top:4px}
+    .card{background:#fff;border-radius:14px;padding:20px;margin:14px 0;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+    h2{font-size:1em;color:#7a6152;margin-bottom:16px}
+    .row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0ebe5;font-size:.95em}
+    .row:last-child{border-bottom:none}
+    .row .k{color:#888}
+    .row .v{font-weight:600}
+    .account{font-size:1.6em;font-weight:700;color:#7a6152;letter-spacing:3px;text-align:center;padding:14px;background:#faf0e8;border-radius:10px;margin:14px 0}
+    .copy-btn{width:100%;background:#7a6152;color:#fff;border:none;border-radius:10px;padding:12px;font-size:.95em;cursor:pointer;margin-top:4px}
+    .copy-btn:active{background:#5a4a3a}
+    .note{background:#fff8f0;border-left:3px solid #e8a87c;padding:12px 14px;border-radius:0 8px 8px 0;font-size:.88em;color:#666;margin:14px 0;line-height:1.6}
+    .footer{text-align:center;color:#ccc;font-size:.78em;margin-top:28px;padding-bottom:24px;line-height:1.8}
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">春喃日光</div>
+    <div class="sub">Whispring Inn</div>
+  </div>
+
+  <div class="card">
+    <h2>💳 匯款資訊</h2>
+    <div class="row"><span class="k">銀行</span><span class="v">台新銀行（812）</span></div>
+    <div class="row"><span class="k">戶名</span><span class="v">陳家瑜</span></div>
+    <div class="row"><span class="k">帳號</span><span class="v">28881004517240</span></div>
+    <div class="account">28881004517240</div>
+    <button class="copy-btn" onclick="copyAcc()">複製帳號</button>
+  </div>
+
+  <div class="note">
+    ⚠️ 匯款後請將收據截圖傳給房東確認，謝謝您！
+  </div>
+
+  <div class="footer">
+    春喃日光 Whispring Inn<br>
+    如有疑問請聯繫房東
+  </div>
+
+  <script>
+    function copyAcc(){
+      navigator.clipboard.writeText('28881004517240').then(()=>{
+        const b=document.querySelector('.copy-btn');
+        b.textContent='✅ 已複製！';
+        setTimeout(()=>b.textContent='複製帳號',2000);
+      });
+    }
+  </script>
+</body>
+</html>
