@@ -13,6 +13,8 @@
     .welcome{background:#fff;border-radius:14px;padding:20px;margin:14px 0;box-shadow:0 2px 10px rgba(0,0,0,.06);line-height:1.8;font-size:.95em}
     .welcome p{margin-bottom:8px}
     .welcome p:last-child{margin-bottom:0}
+    .checkin-link{display:block;background:#faf0e8;border-radius:10px;padding:12px 14px;margin:10px 0;font-weight:600;color:#7a6152;word-break:break-all;text-decoration:none;font-size:.95em}
+    .checkin-link:active{background:#f0e0d0}
     .card{background:#fff;border-radius:14px;padding:20px;margin:14px 0;box-shadow:0 2px 10px rgba(0,0,0,.06)}
     .code{font-size:2em;font-weight:700;color:#7a6152;letter-spacing:4px;text-align:center;padding:12px;background:#faf0e8;border-radius:10px}
     .code-note{font-size:.85em;color:#888;text-align:center;margin-top:6px}
@@ -34,7 +36,9 @@
 
   <div class="welcome">
     <p>歡迎您今日到訪！</p>
-    <p>以下我們整理了詳細的「入住指引」附上「大門密碼、房號」協助您自助入住，請您務必詳讀，幫助您入住更加順暢 😊</p>
+    <p>以下我們整理了詳細的「入住指引」附上「大門密碼、房號」協助您自助入住：</p>
+    <a class="checkin-link" href="https://whispring-inn.github.io/checkin">入住指引：https://whispring-inn.github.io/checkin</a>
+    <p>請您務必詳讀以上「入住指引」，幫助您入住更加順暢😊</p>
   </div>
 
   <div class="card">
@@ -66,15 +70,8 @@
   </div>
 
   <div class="footer">
-    春喃日光 Whispring Inn<br>
-    感謝您的入住，祝您住宿愉快！
+    春喃斥光 危师日光<br>
+    感豪您的入住＜储您啥好！
   </div>
-
-  <script>
-    const p = new URLSearchParams(location.search);
-    document.getElementById('door').textContent = p.get('d') || '—';
-    document.getElementById('room').textContent = p.get('r') ? p.get('r') + ' 號' : '—';
-    document.getElementById('box').textContent  = p.get('b') || '—';
-  </script>
 </body>
 </html>
