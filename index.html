@@ -304,7 +304,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-se
 #guideSection .code-big{font-size:2em;font-weight:700;color:#7a6152;letter-spacing:4px;text-align:center;background:#faf0e8;border-radius:10px;padding:14px 12px}
 #guideSection .code-hint{font-size:.82em;color:#999;text-align:center;margin-top:5px;line-height:1.5}
 #guideSection .codes-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
-#guideSection .codes-row .code-big{font-size:1.6em}#guideSection .codes-divider{border:none;border-top:1px solid #f0ebe5;margin:14px 0 12px}
+#guideSection .codes-row .code-big{font-size:1.6em}#guideSection #room.code-big{font-size:1.5em}#guideSection .codes-divider{border:none;border-top:1px solid #f0ebe5;margin:14px 0 12px}
 #guideSection .info-row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #f0ebe5;font-size:.92em;gap:8px}
 #guideSection .info-row:last-child{border-bottom:none}
 #guideSection .info-row .k{color:#888;flex-shrink:0}
@@ -359,7 +359,7 @@ body:not(.en) .en-block{display:none}
   flex-shrink: 0;
   padding: 4px 8px;
   border-radius: 20px;
-  font-size: .7em;
+  font-size: .62em;
   font-weight: 600;
   color: #9a8878;
   background: #f0ebe4;
@@ -774,10 +774,6 @@ function toggleLang() {
         <div class="code-big" id="box">—</div>
       </div>
     </div>
-    <div id="multi-room-note" class="note" style="display:none;margin-top:10px">
-      <span class="zh">以上所有房間的房卡均放置於此房卡盒，請一併取出。</span>
-      <span class="en">Room cards for all rooms listed above are in this key box. Please collect all cards.</span>
-    </div>
     <div class="note">
       <span class="zh">📍 房卡盒位於<strong>一樓大廳招牌下的邊櫃上</strong><br>找到對應的盒號 → 輸入密碼後取出房卡 → 搭乘電梯前往您的樓層</span>
       <span class="en">📍 The key box is on the <strong>side cabinet under the lobby sign (1F)</strong><br>Find your box number → Enter the code → Take the elevator to your floor</span>
@@ -940,11 +936,6 @@ function toggleLang() {
     if (rooms.length > 1) {
       const mn = document.getElementById("multi-room-note");
       if (mn) mn.style.display = "block";
-      const rh = document.getElementById("room-code-hint");
-      if (rh) {
-        rh.querySelector(".zh").textContent = "已為您預訂以上全部房間";
-        rh.querySelector(".en").textContent = "All rooms listed above are reserved for you";
-      }
     }
     document.getElementById("box").textContent    = p.get("b") || "—";
     document.getElementById("boxnum").textContent = p.get("bn") || "—";
@@ -1007,4 +998,4 @@ function toggleLang() {
 </script>
 </div>
 </body>
-</html>
+</html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
