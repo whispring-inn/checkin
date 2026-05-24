@@ -608,7 +608,6 @@ document.getElementById('checkinForm').addEventListener('submit', e => {
     });
     fetch(SHEET_URL + "?" + sheetParams.toString())
       .catch(() => {}); // 靜默失敗，不影響客人登記流程
-  }
 
   document.getElementById('formWrap').style.display = 'none';
   document.getElementById('successWrap').style.display = 'block';
