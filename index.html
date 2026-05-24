@@ -598,7 +598,7 @@ document.getElementById('checkinForm').addEventListener('submit', e => {
     timeZone: "Asia/Taipei", year: "numeric", month: "2-digit", day: "2-digit"
   });
 
-  if (SHEET_URL !== "https://script.google.com/macros/s/AKfycby9HqsmH13OUYriWCQduzPNOxGXwWEJTSkhio4TfJ917Jf-YuLFv82rkKMwnO44fN5f2A/exec") {
+  // Google Sheet 寫入
     const sheetParams = new URLSearchParams({
       date:    today,
       room:    roomParam,
