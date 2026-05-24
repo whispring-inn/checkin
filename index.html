@@ -304,7 +304,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-se
 #guideSection .code-big{font-size:2em;font-weight:700;color:#7a6152;letter-spacing:4px;text-align:center;background:#faf0e8;border-radius:10px;padding:14px 12px}
 #guideSection .code-hint{font-size:.82em;color:#999;text-align:center;margin-top:5px;line-height:1.5}
 #guideSection .codes-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
-#guideSection .codes-row .code-big{font-size:1.6em}#guideSection #room.code-big{font-size:1.5em}#guideSection .codes-divider{border:none;border-top:1px solid #f0ebe5;margin:14px 0 12px}
+#guideSection .codes-row .code-big{font-size:1.6em}#guideSection #room.code-big{font-size:1.3em;letter-spacing:0;line-height:1.7;text-align:left;padding:14px 18px}#guideSection .codes-divider{border:none;border-top:1px solid #f0ebe5;margin:14px 0 12px}
 #guideSection .info-row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #f0ebe5;font-size:.92em;gap:8px}
 #guideSection .info-row:last-child{border-bottom:none}
 #guideSection .info-row .k{color:#888;flex-shrink:0}
@@ -349,7 +349,7 @@ body:not(.en) .en-block{display:none}
 }
 #guide-nav .nav-scroll {
   display: flex;
-  gap: 4px;
+  gap: 3px;
   overflow-x: auto;
   padding: 0 16px;
   scrollbar-width: none;
@@ -357,9 +357,9 @@ body:not(.en) .en-block{display:none}
 #guide-nav .nav-scroll::-webkit-scrollbar { display: none; }
 #guide-nav .nav-pill {
   flex-shrink: 0;
-  padding: 4px 8px;
+  padding: 3px 6px;
   border-radius: 20px;
-  font-size: .62em;
+  font-size: .58em;
   font-weight: 600;
   color: #9a8878;
   background: #f0ebe4;
@@ -923,16 +923,25 @@ function toggleLang() {
     const ROOM_TYPE = { '201':'四人房','202':'雙人房','301':'四人房','302':'雙人房','401':'四人房' };
     const ROOM_TYPE_EN = { '201':'Quad','202':'Double','301':'Quad','302':'Double','401':'Quad' };
     const rooms = (p.get("r") || "").split(",").filter(Boolean);
-    document.getElementById("room").textContent = rooms.length > 0 ? rooms.join("、") : "—";
-    const typeHint = document.getElementById("room-type-hint");
-    if(typeHint && rooms.length > 0){
-      const zhTypes = rooms.map(r => ROOM_TYPE[r] || '').filter(Boolean);
-      const enTypes = rooms.map(r => ROOM_TYPE_EN[r] || '').filter(Boolean);
-      const unique = t => [...new Set(t)];
-      typeHint.innerHTML = rooms.length > 1
-        ? '<span class="zh">' + rooms.map(r => r + '（' + (ROOM_TYPE[r]||'') + '）').join('、') + '</span><span class="en">' + rooms.map(r => r + ' (' + (ROOM_TYPE_EN[r]||'') + ')').join(', ') + '</span>'
-        : '<span class="zh">' + unique(zhTypes).join('／') + '</span><span class="en">' + unique(enTypes).join(' / ') + '</span>';
+    const roomEl = document.getElementById("room");
+    if (rooms.length > 0) {
+      // 依房型分組顯示
+      const zhGroup = {}, enGroup = {};
+      rooms.forEach(r => {
+        const zt = ROOM_TYPE[r] || '其他', et = ROOM_TYPE_EN[r] || 'Other';
+        (zhGroup[zt] = zhGroup[zt] || []).push(r);
+        (enGroup[et] = enGroup[et] || []).push(r);
+      });
+      const zhOrder = ['雙人房','四人房','其他'];
+      const enOrder = ['Double','Quad','Other'];
+      const zhLines = zhOrder.filter(t => zhGroup[t]).map(t => t + '：' + zhGroup[t].join('、'));
+      const enLines = enOrder.filter(t => enGroup[t]).map(t => t + ': ' + enGroup[t].join(', '));
+      roomEl.innerHTML = '<span class="zh">' + zhLines.join('<br>') + '</span><span class="en">' + enLines.join('<br>') + '</span>';
+    } else {
+      roomEl.textContent = "—";
     }
+    const typeHint = document.getElementById("room-type-hint");
+    if (typeHint) typeHint.style.display = 'none';
     if (rooms.length > 1) {
       const mn = document.getElementById("multi-room-note");
       if (mn) mn.style.display = "block";
@@ -998,4 +1007,4 @@ function toggleLang() {
 </script>
 </div>
 </body>
-</html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+</html>                                                                                                                                                                                                                                                                         
