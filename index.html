@@ -591,6 +591,8 @@ document.getElementById('checkinForm').addEventListener('submit', e => {
     paymentLabel = "Airbnb";
   } else if (src === "direct") {
     paymentLabel = "官網直訂";
+  } else if (src === "other") {
+    paymentLabel = "其它";
   }
 
   // 取得 URL 參數（房號由簡訊連結帶入）
