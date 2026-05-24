@@ -670,12 +670,6 @@ function toggleLang() {
   });
 }
 
-    const p = new URLSearchParams(location.search);
-    document.getElementById("door").textContent = p.get("d") || "—";
-    document.getElementById("room").textContent = p.get("r") || "—";
-    document.getElementById("box").textContent  = p.get("b") || "—";
-    
-  
 </script>
 
 <!-- ══ GUIDE SECTION ══ -->
@@ -872,13 +866,6 @@ function toggleLang() {
       document.getElementById("langBtn").textContent = isEn ? "中文" : "English";
       document.documentElement.lang = isEn ? "en" : "zh-TW";
     }
-  
-
-    const p = new URLSearchParams(location.search);
-    document.getElementById("door").textContent = p.get("d") || "—";
-    document.getElementById("room").textContent = p.get("r") || "—";
-    document.getElementById("box").textContent  = p.get("b") || "—";
-    
   
 </script>
 </div>
