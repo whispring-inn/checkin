@@ -587,6 +587,10 @@ document.getElementById('checkinForm').addEventListener('submit', e => {
   if (src === "booking") {
     if (bpVal === "paid" || bpVal === "transfer") paymentLabel = "轉帳";
     else if (bpVal === "card")                    paymentLabel = "現場刷卡";
+  } else if (src === "airbnb") {
+    paymentLabel = "Airbnb";
+  } else if (src === "direct") {
+    paymentLabel = "官網直訂";
   }
 
   // 取得 URL 參數（房號由簡訊連結帶入）
@@ -611,6 +615,10 @@ document.getElementById('checkinForm').addEventListener('submit', e => {
 
   document.getElementById('formWrap').style.display = 'none';
   document.getElementById('successWrap').style.display = 'block';
+  // 加入 done=1 讓重新整理時可恢復入住指引
+  const doneUrl = new URL(location.href);
+  doneUrl.searchParams.set('done', '1');
+  history.replaceState(null, '', doneUrl.toString());
 
 
   // 顯示 guide section（單頁內嵌）
@@ -860,6 +868,13 @@ function toggleLang() {
     document.getElementById("door").textContent = p.get("d") || "—";
     document.getElementById("room").textContent = p.get("r") || "—";
     document.getElementById("box").textContent  = p.get("b") || "—";
+
+    // 若網址有 done=1（重新整理的情況），直接顯示入住指引
+    if (p.get("done") === "1") {
+      document.getElementById("formWrap").style.display = "none";
+      document.getElementById("guideSection").style.display = "block";
+    }
+
     function toggleLang() {
       const isEn = document.body.classList.toggle("en");
       document.getElementById("langBtn").textContent = isEn ? "中文" : "English";
