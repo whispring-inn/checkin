@@ -998,4 +998,14 @@ function toggleLang() {
 
     // 語言切換時同步 pill 顯示
     const origToggle = window.toggleLang;
-    window.toggleL
+    window.toggleLang = function() {
+      origToggle && origToggle();
+      syncPills();
+    };
+
+    syncPills();
+  })();
+  </script>
+</div>
+</body>
+</html>
