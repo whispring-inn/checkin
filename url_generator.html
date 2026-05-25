@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>春喃日光 — 入住登記網址產生器</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #f5f4f0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+  }
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 480px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  h1 { font-size: 18px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px; }
+  .subtitle { font-size: 13px; color: #888; margin-bottom: 1.5rem; }
+
+  .field { margin-bottom: 1.25rem; }
+  label.field-label { display: block; font-size: 13px; color: #555; font-weight: 500; margin-bottom: 8px; }
+
+  input[type="date"] {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #1a1a1a;
+    background: #fff;
+    outline: none;
+    width: 100%;
+  }
+  input[type="date"]:focus { border-color: #888; }
+
+  .room-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+  }
+  .room-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 6px;
+    border: 1.5px solid #ddd;
+    border-radius: 10px;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.15s;
+    background: #fff;
+  }
+  .room-btn:hover { border-color: #aaa; background: #faf9f7; }
+  .room-btn.selected { border-color: #7a6152; background: #faf0e8; }
+  .room-btn input[type="checkbox"] { display: none; }
+  .room-num { font-size: 16px; font-weight: 700; color: #1a1a1a; }
+  .room-btn.selected .room-num { color: #7a6152; }
+  .room-type { font-size: 10px; color: #aaa; margin-top: 2px; }
+  .room-btn.selected .room-type { color: #c0a090; }
+
+  .codes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin: 1.25rem 0;
+  }
+  .code-card { background: #f5f4f0; border-radius: 10px; padding: 12px; text-align: center; }
+  .code-label { font-size: 11px; color: #888; margin-bottom: 4px; }
+  .code-val { font-size: 24px; font-weight: 600; color: #1a1a1a; letter-spacing: 2px; font-family: monospace; }
+
+  .url-box {
+    background: #f5f4f0;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 11px;
+    color: #666;
+    word-break: break-all;
+    font-family: monospace;
+    margin-bottom: 12px;
+    min-height: 40px;
+  }
+  .url-placeholder { color: #ccc; font-style: italic; font-size: 12px; }
+
+  .btn-row { display: flex; gap: 8px; margin-bottom: 0; }
+  button {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    cursor: pointer;
+    background: #fff;
+    color: #1a1a1a;
+    transition: background 0.15s;
+  }
+  button:hover { background: #f0efeb; }
+  button:disabled { opacity: 0.35; cursor: not-allowed; }
+  button.primary { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+  button.primary:hover { background: #333; }
+  button.primary:disabled { background: #ccc; border-color: #ccc; }
+
+  /* 訊息模板 */
+  .divider {
+    border: none;
+    border-top: 1px solid #ece9e4;
+    margin: 1.5rem 0;
+  }
+  .section-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  .section-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #555;
+  }
+  .lang-tabs {
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 7px;
+    overflow: hidden;
+  }
+  .lang-tab {
+    padding: 4px 12px;
+    font-size: 12px;
+    cursor: pointer;
+    background: #fff;
+    color: #888;
+    border: none;
+    transition: all 0.15s;
+    flex: 1;
+  }
+  .lang-tab.active {
+    background: #1a1a1a;
+    color: #fff;
+  }
+  .msg-box {
+    background: #f5f4f0;
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 13.5px;
+    color: #333;
+    line-height: 1.85;
+    white-space: pre-wrap;
+    word-break: break-all;
+    margin-bottom: 10px;
+    min-height: 60px;
+  }
+  .msg-placeholder { color: #ccc; font-style: italic; font-size: 12px; white-space: normal; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>入住登記網址產生器</h1>
+  <p class="subtitle">春喃日光 Whispring Inn</p>
+
+  <div class="field">
+    <label class="field-label">入住日期</label>
+    <input type="date" id="date-in">
+  </div>
+
+  <div class="field">
+    <label class="field-label">房號（可多選）</label>
+    <div class="room-grid">
+      <label class="room-btn" id="btn-201">
+        <input type="checkbox" value="201" onchange="update()">
+        <span class="room-num">201</span>
+        <span class="room-type">四人・2F</span>
+      </label>
+      <label class="room-btn" id="btn-202">
+        <input type="checkbox" value="202" onchange="update()">
+        <span class="room-num">202</span>
+        <span class="room-type">雙人・2F</span>
+      </label>
+      <label class="room-btn" id="btn-301">
+        <input type="checkbox" value="301" onchange="update()">
+        <span class="room-num">301</span>
+        <span class="room-type">四人・3F</span>
+      </label>
+      <label class="room-btn" id="btn-302">
+        <input type="checkbox" value="302" onchange="update()">
+        <span class="room-num">302</span>
+        <span class="room-type">雙人・3F</span>
+      </label>
+      <label class="room-btn" id="btn-401">
+        <input type="checkbox" value="401" onchange="update()">
+        <span class="room-num">401</span>
+        <span class="room-type">四人・4F</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="codes-grid">
+    <div class="code-card">
+      <div class="code-label">大門密碼</div>
+      <div class="code-val" id="door-out">—</div>
+    </div>
+    <div class="code-card">
+      <div class="code-label">房卡盒號</div>
+      <div class="code-val" id="boxnum-out">—</div>
+    </div>
+    <div class="code-card">
+      <div class="code-label">房卡盒密碼</div>
+      <div class="code-val" id="box-out">—</div>
+    </div>
+  </div>
+  <div id="room-row" style="display:none;background:#f5f4f0;border-radius:8px;padding:8px 14px;margin-bottom:12px;font-size:13px;color:#555">
+    🏠 房間：<span id="room-out" style="font-weight:600;color:#1a1a1a">—</span>
+  </div>
+
+  <div class="url-box" id="url-out">
+    <span class="url-placeholder">請選擇日期與房號</span>
+  </div>
+
+  <div class="btn-row">
+    <button id="btn-copy" onclick="copyUrl()" disabled>複製連結</button>
+    <button id="btn-open" class="primary" onclick="openUrl()" disabled>開啟頁面 ↗</button>
+  </div>
+
+  <!-- 訊息模板 -->
+  <hr class="divider">
+  <div class="section-row">
+    <p class="section-label">入住通知訊息</p>
+    <div class="lang-tabs">
+      <button class="lang-tab active" id="tab-zh" onclick="switchLang('zh')">中文</button>
+      <button class="lang-tab" id="tab-en" onclick="switchLang('en')">English</button>
+    </div>
+  </div>
+  <div class="msg-box" id="msg-out"><span class="msg-placeholder">選擇日期與房號後自動產生</span></div>
+  <div class="btn-row">
+    <button id="btn-copy-msg" onclick="copyMsg()" disabled>複製訊息</button>
+  </div>
+</div>
+
+<script>
+const BASE = "https://whispring-inn.github.io/checkin/";
+
+function pad(n){ return String(n).padStart(2,'0'); }
+
+function calcDoor(dateStr){
+  const d = new Date(dateStr + 'T00:00:00');
+  const mm = pad(d.getMonth()+1);
+  const dd = pad(d.getDate());
+  return mm + mm + dd;
+}
+
+const ROOM_BOX = { '201':1, '202':2, '301':3, '302':4, '401':5 };
+
+function calcBoxNum(room){
+  return ROOM_BOX[String(room)] || null;
+}
+function calcBoxCode(n){
+  return String(n).repeat(3);
+}
+
+function getToday(){
+  const now = new Date();
+  return now.getFullYear() + '-' + pad(now.getMonth()+1) + '-' + pad(now.getDate());
+}
+
+let currentUrl = '';
+let currentMsg = '';
+let currentMsgEn = '';
+let currentLang = 'zh';
+
+function getSelectedRooms(){
+  return Array.from(document.querySelectorAll('.room-btn input[type="checkbox"]:checked'))
+    .map(cb => cb.value)
+    .sort();
+}
+
+function buildMsg(url){
+  return `春喃日光 Whispring Inn｜入住登記
+
+您好，歡迎入住春喃日光！🌿
+請點選以下連結，完成「線上登記」並取得「入住指引＆密碼」：
+${url}
+
+如有任何問題，歡迎隨時與我們聯繫！`;
+}
+
+function buildMsgEn(url){
+  return `Whispring Inn｜Online Check-in
+
+Hello, welcome to Whispring Inn! 🌿
+Please click the link below to complete your "Online Check-in" and receive "Self Check-in Guide & Access codes":
+${url}
+
+Feel free to contact us anytime if you have any questions.`;
+}
+
+function switchLang(lang){
+  currentLang = lang;
+  document.getElementById('tab-zh').classList.toggle('active', lang === 'zh');
+  document.getElementById('tab-en').classList.toggle('active', lang === 'en');
+  const msgEl = document.getElementById('msg-out');
+  if(lang === 'zh'){
+    msgEl.textContent = currentMsg || '';
+    if(!currentMsg) msgEl.innerHTML = '<span class="msg-placeholder">選擇日期與房號後自動產生</span>';
+  } else {
+    msgEl.textContent = currentMsgEn || '';
+    if(!currentMsgEn) msgEl.innerHTML = '<span class="msg-placeholder">Select date and room first</span>';
+  }
+}
+
+function update(){
+  document.querySelectorAll('.room-btn').forEach(btn => {
+    const cb = btn.querySelector('input[type="checkbox"]');
+    btn.classList.toggle('selected', cb.checked);
+  });
+
+  const dateVal = document.getElementById('date-in').value;
+  const rooms   = getSelectedRooms();
+
+  if(!dateVal || rooms.length === 0){
+    document.getElementById('door-out').textContent   = '—';
+    document.getElementById('boxnum-out').textContent = '—';
+    document.getElementById('box-out').textContent    = '—';
+    document.getElementById('room-out').textContent   = '—';
+    document.getElementById('room-row').style.display = 'none';
+    document.getElementById('url-out').innerHTML = '<span class="url-placeholder">請選擇日期與房號</span>';
+    document.getElementById('msg-out').innerHTML = '<span class="msg-placeholder">選擇日期與房號後自動產生</span>';
+    document.getElementById('btn-copy').disabled = true;
+    document.getElementById('btn-open').disabled = true;
+    document.getElementById('btn-copy-msg').disabled = true;
+    currentUrl = '';
+    currentMsg = '';
+    return;
+  }
+
+  const door    = calcDoor(dateVal);
+  const boxRoom = rooms[0];
+  const bn      = calcBoxNum(boxRoom);
+  const box     = bn ? calcBoxCode(bn) : '—';
+
+  document.getElementById('door-out').textContent   = door;
+  document.getElementById('boxnum-out').textContent = bn || '—';
+  document.getElementById('box-out').textContent    = box;
+  document.getElementById('room-out').textContent   = rooms.join('、');
+  document.getElementById('room-row').style.display = 'block';
+
+  const paramObj = { r: rooms.join(','), d: door, b: box, bn: bn };
+  const params = new URLSearchParams(paramObj);
+  currentUrl = BASE + '?' + params.toString();
+  document.getElementById('url-out').textContent = currentUrl;
+
+  currentMsg   = buildMsg(currentUrl);
+  currentMsgEn = buildMsgEn(currentUrl);
+  document.getElementById('msg-out').textContent = currentLang === 'zh' ? currentMsg : currentMsgEn;
+
+  document.getElementById('btn-copy').disabled = false;
+  document.getElementById('btn-open').disabled = false;
+  document.getElementById('btn-copy-msg').disabled = false;
+}
+
+function copyUrl(){
+  if(!currentUrl) return;
+  navigator.clipboard.writeText(currentUrl).then(()=>{
+    const btn = document.getElementById('btn-copy');
+    btn.textContent = '已複製！';
+    setTimeout(()=>{ btn.textContent = '複製連結'; }, 2000);
+  });
+}
+
+function copyMsg(){
+  const txt = currentLang === 'zh' ? currentMsg : currentMsgEn;
+  if(!txt) return;
+  navigator.clipboard.writeText(txt).then(()=>{
+    const btn = document.getElementById('btn-copy-msg');
+    btn.textContent = '已複製！';
+    setTimeout(()=>{ btn.textContent = '複製訊息'; }, 2000);
+  });
+}
+
+function openUrl(){
+  if(currentUrl) window.open(currentUrl, '_blank');
+}
+
+document.getElementById('date-in').value = getToday();
+document.getElementById('date-in').addEventListener('change', update);
+</script>
+</body>
+</html>
