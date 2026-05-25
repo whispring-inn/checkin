@@ -955,11 +955,7 @@ function toggleLang() {
       document.getElementById("guideSection").style.display = "block";
     }
 
-    function toggleLang() {
-      const isEn = document.body.classList.toggle("en");
-      document.getElementById("langBtn").textContent = isEn ? "中文" : "English";
-      document.documentElement.lang = isEn ? "en" : "zh-TW";
-    }
+
   
 
   // ── 快速導覽 ──
@@ -996,10 +992,14 @@ function toggleLang() {
       if(el) obs.observe(el);
     });
 
-    // 語言切換時同步 pill 顯示
-    const origToggle = window.toggleLang;
+    // 語言切換：更新 body class、langBtn、placeholder、pill 顯示
     window.toggleLang = function() {
-      origToggle && origToggle();
+      const isEn = document.body.classList.toggle('en');
+      document.getElementById('langBtn').textContent = isEn ? '中文' : 'English';
+      document.documentElement.lang = isEn ? 'en' : 'zh-TW';
+      document.querySelectorAll('input[data-en], textarea[data-en]').forEach(el => {
+        el.placeholder = isEn ? (el.dataset.en || '') : (el.dataset.zh || '');
+      });
       syncPills();
     };
 
