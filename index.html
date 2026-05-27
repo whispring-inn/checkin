@@ -127,6 +127,10 @@ body{
 }
 .fi::placeholder{color:rgba(26,18,8,0.22);font-size:15px}
 .fi[type=date]{color-scheme:light}
+select.fi{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a5c38' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px;cursor:pointer;}
+select.fi:invalid{color:rgba(26,18,8,0.22);font-size:15px;}
+select.fi option{font-size:17px;color:var(--INK);}
+select.fi option[value=""]{color:rgba(26,18,8,0.22);font-size:15px;}
 
 .date-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px}
 .date-sep{
@@ -416,6 +420,16 @@ body:not(.en) .en-block{display:none}
         <input class="fi" type="text" placeholder="身分證 / 護照號碼" data-zh="身分證 / 護照號碼" data-en="ID / Passport No.">
       </div>
       <div class="field">
+        <div class="flabel"><span class="zh">🕐 預計抵達時間</span><span class="en">🕐 ESTIMATED ARRIVAL</span></div>
+        <select class="fi" id="arrivalTime"
+          data-zh="請選擇抵達時段" data-en="Select arrival window" required>
+          <option value="" disabled selected>請選擇抵達時段</option>
+          <option value="15:00 ~ 18:00">15:00 ~ 18:00</option>
+          <option value="18:00 ~ 21:00">18:00 ~ 21:00</option>
+          <option value="21:00~" data-zh="21:00 以後" data-en="After 21:00">21:00 以後</option>
+        </select>
+      </div>
+      <div class="field">
         <div class="flabel"><span class="zh">⊞ 訂房來源</span><span class="en">⊞ BOOKED VIA</span></div>
         <div class="src-grid">
           <div class="src"><input type="radio" name="src" id="s1" value="direct" required><label for="s1"><span class="src-ic">🏠</span><span class="zh">官網直訂</span><span class="en">Direct</span></label></div>
@@ -641,6 +655,7 @@ document.getElementById('checkinForm').addEventListener('submit', e => {
       name:    formInputs.querySelector('input[type="text"]').value,
       id:      formInputs.querySelectorAll('input[type="text"]')[1]?.value || "",
       payment: paymentLabel,
+      arrival: document.getElementById('arrivalTime').value || "",
     });
     fetch(SHEET_URL + "?" + sheetParams.toString())
       .catch(() => {}); // 靜默失敗，不影響客人登記流程
@@ -706,6 +721,14 @@ function toggleLang() {
   document.documentElement.lang = isEn ? 'en' : 'zh-TW';
   document.querySelectorAll('input[data-en], textarea[data-en]').forEach(el => {
     el.placeholder = isEn ? (el.dataset.en || '') : (el.dataset.zh || '');
+  });
+  // 下拉選單：placeholder 切換 + 各 option 雙語切換
+  document.querySelectorAll('select[data-en]').forEach(el => {
+    const ph = el.querySelector('option[value=""]');
+    if (ph) ph.textContent = isEn ? (el.dataset.en || '') : (el.dataset.zh || '');
+    el.querySelectorAll('option[data-zh]').forEach(o => {
+      o.textContent = isEn ? (o.dataset.en || o.dataset.zh) : o.dataset.zh;
+    });
   });
 }
 
@@ -992,6 +1015,14 @@ function toggleLang() {
       document.querySelectorAll('input[data-en], textarea[data-en]').forEach(el => {
         el.placeholder = isEn ? (el.dataset.en || '') : (el.dataset.zh || '');
       });
+      // 下拉選單：placeholder 切換 + 各 option 雙語切換
+      document.querySelectorAll('select[data-en]').forEach(el => {
+        const ph = el.querySelector('option[value=""]');
+        if (ph) ph.textContent = isEn ? (el.dataset.en || '') : (el.dataset.zh || '');
+        el.querySelectorAll('option[data-zh]').forEach(o => {
+          o.textContent = isEn ? (o.dataset.en || o.dataset.zh) : o.dataset.zh;
+        });
+      });
       syncPills();
     };
 
@@ -1000,4 +1031,4 @@ function toggleLang() {
   </script>
 </div>
 </body>
-</html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+</html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
