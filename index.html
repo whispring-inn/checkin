@@ -8,7 +8,7 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --Y:#E8C07A;h
+  --Y:#E8C07A;
   --BR:#7a5c38;
   --BR2:#b08050;
   --SA:#fdf8f0;
@@ -157,6 +157,7 @@ body{
 /* CTA button */
 .btn{
   width:100%;padding:15px;
+  appearance:none;-webkit-appearance:none;
   background:linear-gradient(135deg,var(--BR) 0%,var(--Y) 100%);
   color:#fff;border:none;border-radius:8px;
   font-family:'Noto Serif TC',serif;
@@ -506,15 +507,7 @@ body:not(.en) .en-block{display:none}
     <p><span class="zh">我們已收到您的資訊<br>期待在恆春與您相遇</span><span class="en">We've received your info.<br>Looking forward to meeting you in Hengchun!</span></p>
 
     <div style="margin-top:28px">
-      <a href="#guideSection" onclick="document.getElementById('guideSection').style.display='block'" id="guideBtn" style="
-        display:block;width:100%;padding:15px;
-        background:linear-gradient(135deg,var(--BR) 0%,var(--Y) 100%);
-        color:#fff;border:none;border-radius:8px;
-        font-family:'Noto Serif TC',serif;
-        font-size:16px;letter-spacing:.14em;font-weight:400;
-        text-decoration:none;text-align:center;
-        box-shadow:0 4px 16px rgba(122,92,56,0.28);
-      ">
+      <a href="#guideSection" onclick="document.getElementById('guideSection').style.display='block'" id="guideBtn" class="btn" style="text-decoration:none;text-align:center;">
         <span class="zh">📋 前往入住指引</span>
         <span class="en">📋 View Self Check-in Guide</span>
       </a>
@@ -1007,4 +1000,4 @@ function toggleLang() {
   </script>
 </div>
 </body>
-</html>                                                          
+</html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
