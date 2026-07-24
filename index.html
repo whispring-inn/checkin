@@ -499,6 +499,52 @@ body:not(.en) .en-block{display:none}
         </div>
       </div>
 
+      <!-- ▼ 其他來源 付款確認（選「其他」時才顯示） -->
+      <div class="booking-pay-check" id="otherPayCheck" style="display:none">
+        <div class="bp-question">💳 <span class="zh">請問您是否已經完成付款？</span><span class="en">Have you completed payment?</span></div>
+        <div class="bp-options">
+          <label class="bp-opt" id="opOptPaid" onclick="selectOpOpt('paid')">
+            <input type="radio" name="opStatus" id="opPaid" value="paid">
+            ✅ &nbsp;<span class="zh">已完成付款</span><span class="en">Payment Complete</span>
+          </label>
+          <label class="bp-opt" id="opOptTransfer" onclick="selectOpOpt('transfer')">
+            <input type="radio" name="opStatus" id="opTransfer" value="transfer">
+            💸 &nbsp;<span class="zh">尚未付款 → 線上轉帳</span><span class="en">Not Yet Paid → Bank Transfer</span>
+          </label>
+          <label class="bp-opt" id="opOptCard" onclick="selectOpOpt('card')">
+            <input type="radio" name="opStatus" id="opCard" value="card">
+            💳 &nbsp;<span class="zh">尚未付款 → 現場刷卡（服務時間 15:00 ～ 18:00）</span><span class="en">Not Yet Paid → On-site Card (15:00 – 18:00)</span>
+          </label>
+        </div>
+        <!-- 線上轉帳提示 -->
+        <div class="bp-alert" id="opTransferMsg" style="display:none">
+          <div class="bp-alert-icon">🏦</div>
+          <div>
+            <div class="bp-alert-title"><span class="zh">請以轉帳方式完成付款</span><span class="en">Please complete payment via bank transfer</span></div>
+            <div class="bp-alert-text">
+              <span class="zh">房費請您先以「轉帳」的方式轉入以下收款帳號：</span><span class="en">Please transfer the room fee to the account below:</span><br><br>
+              🏦 台新銀行 (812) &nbsp;28881004517240（戶名: 楊○彥）<br><br>
+              <span class="zh"><strong>請依訂單上的確切金額完成匯款並私訊通知我們 → 回來完成線上登記</strong></span><span class="en"><strong>Transfer the exact amount &amp; DM us to confirm → Return here to complete Online check-in</strong></span>
+            </div>
+          </div>
+        </div>
+        <!-- 現場刷卡提示 -->
+        <div class="bp-alert" id="opCardMsg" style="display:none">
+          <div class="bp-alert-icon">💳</div>
+          <div>
+            <div class="bp-alert-title"><span class="zh">現場刷卡服務說明</span><span class="en">On-site Card Payment</span></div>
+            <div class="bp-alert-text">
+              <span class="zh">如需刷卡服務請先私訊告知</span><span class="en">Please DM us first</span>
+              &nbsp;→&nbsp;<span class="zh">完成線上登記</span><span class="en">Complete Online check-in</span>
+              &nbsp;→&nbsp;<span class="zh">與我們約定時間於現場辦理刷卡<strong>（現場刷卡服務時間為 15:00 ～ 18:00）</strong></span><span class="en">We'll arrange on-site card payment with you <strong>(15:00 – 18:00)</strong></span>
+            </div>
+          </div>
+        </div>
+        <div class="bp-confirm-note" id="opPaidMsg" style="display:none">
+          ✦ <span class="zh">感謝確認！提交後我們會核對您的付款紀錄。</span><span class="en">Thank you! We will verify your payment after submission.</span>
+        </div>
+      </div>
+
       <div style="margin-top:20px">
         <button type="submit" class="btn" id="submitBtn"><span class="zh">完成線上登記</span><span class="en">Complete Online Check-in</span></button>
         <div class="note" style="margin-top:8px">
@@ -599,6 +645,13 @@ document.getElementById('checkinForm').addEventListener('submit', e => {
       return;
     }
   }
+  if (src === 'other') {
+    const opVal = document.querySelector('input[name="opStatus"]:checked')?.value;
+    if (!opVal) {
+      otherPayCheck.scrollIntoView({behavior:'smooth', block:'center'});
+      return;
+    }
+  }
 
   const src2 = document.querySelector('input[name="src"]:checked')?.value;
 
@@ -637,7 +690,10 @@ document.getElementById('checkinForm').addEventListener('submit', e => {
   } else if (src === "direct") {
     paymentLabel = "官網直訂";
   } else if (src === "other") {
-    paymentLabel = "其它";
+    const opVal = document.querySelector('input[name="opStatus"]:checked')?.value;
+    if (opVal === "card")                    paymentLabel = "現場刷卡";
+    else if (opVal === "paid" || opVal === "transfer") paymentLabel = "轉帳";
+    else                                     paymentLabel = "其它";
   }
 
   // 取得 URL 參數（房號由簡訊連結帶入）
@@ -697,18 +753,41 @@ function selectBpOpt(val) {
   bpTransferMsg.style.display = val === 'transfer' ? 'flex'  : 'none';
   bpCardMsg.style.display     = val === 'card'     ? 'flex'  : 'none';
   bpPaidMsg.style.display     = val === 'paid'     ? 'block' : 'none';
-  // 線上轉帳：須先付款，停用送出；其餘可送出
+  submitBtn.disabled = val === 'transfer';
+}
+
+// ── 其他來源 付款確認邏輯 ──────────────────────────────────────
+const otherPayCheck  = document.getElementById('otherPayCheck');
+const opTransferMsg  = document.getElementById('opTransferMsg');
+const opCardMsg      = document.getElementById('opCardMsg');
+const opPaidMsg      = document.getElementById('opPaidMsg');
+
+function selectOpOpt(val) {
+  ['Paid','Transfer','Card'].forEach(id => {
+    const opt = document.getElementById('opOpt' + id);
+    if (opt) opt.classList.toggle('selected', val === id.toLowerCase());
+  });
+  if (document.getElementById('opPaid'))     document.getElementById('opPaid').checked     = val === 'paid';
+  if (document.getElementById('opTransfer')) document.getElementById('opTransfer').checked = val === 'transfer';
+  if (document.getElementById('opCard'))     document.getElementById('opCard').checked     = val === 'card';
+  opTransferMsg.style.display = val === 'transfer' ? 'flex'  : 'none';
+  opCardMsg.style.display     = val === 'card'     ? 'flex'  : 'none';
+  opPaidMsg.style.display     = val === 'paid'     ? 'block' : 'none';
   submitBtn.disabled = val === 'transfer';
 }
 
 document.querySelectorAll('input[name="src"]').forEach(radio => {
   radio.addEventListener('change', () => {
     bookingPayCheck.style.display = radio.value === 'booking' ? 'block' : 'none';
+    otherPayCheck.style.display   = radio.value === 'other'   ? 'block' : 'none';
     bpTransferMsg.style.display = 'none';
     bpCardMsg.style.display     = 'none';
     bpPaidMsg.style.display     = 'none';
+    opTransferMsg.style.display = 'none';
+    opCardMsg.style.display     = 'none';
+    opPaidMsg.style.display     = 'none';
     submitBtn.disabled = false;
-    ['bpOptPaid','bpOptTransfer','bpOptCard'].forEach(id => {
+    ['bpOptPaid','bpOptTransfer','bpOptCard','opOptPaid','opOptTransfer','opOptCard'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.classList.remove('selected');
     });
