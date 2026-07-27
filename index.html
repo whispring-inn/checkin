@@ -723,6 +723,12 @@ document.getElementById('checkinForm').addEventListener('submit', e => {
   const doneUrl = new URL(location.href);
   doneUrl.searchParams.set('done', '1');
   history.replaceState(null, '', doneUrl.toString());
+  // 寫入 localStorage，讓重新點開連結時也直接跳入住指引
+  try {
+    const _r = urlParams.get('r') || '';
+    const _d = urlParams.get('d') || '';
+    if (_r && _d) localStorage.setItem('checkin_done_' + _r + '_' + _d, '1');
+  } catch(e) {}
 
 
   // 顯示 guide section（單頁內嵌）
@@ -1048,8 +1054,13 @@ function toggleLang() {
     document.getElementById("box").textContent    = p.get("b") || "—";
     document.getElementById("boxnum").textContent = p.get("bn") || "—";
 
-    // 若網址有 done=1（重新整理的情況），直接顯示入住指引
-    if (p.get("done") === "1") {
+    // 若網址有 done=1 或 localStorage 有紀錄，直接跳入住指引
+    const _r = p.get("r") || '', _d = p.get("d") || '';
+    let _alreadyDone = p.get("done") === "1";
+    if (!_alreadyDone && _r && _d) {
+      try { _alreadyDone = localStorage.getItem('checkin_done_' + _r + '_' + _d) === '1'; } catch(e) {}
+    }
+    if (_alreadyDone) {
       document.getElementById("formWrap").style.display = "none";
       document.getElementById("guideSection").style.display = "block";
     }
