@@ -292,6 +292,7 @@ body:not(.en) .en { display:none !important; }
   transition:all .2s;
 }
 .lang-btn:hover { background:var(--SAND); border-color:var(--BR); }
+.guide-open .lang-btn { top: 52px; transition: top .2s; }
 
 /* ── Guide Section ── */
 
@@ -588,7 +589,7 @@ body:not(.en) .en-block{display:none}
     <p><span class="zh">我們已收到您的資訊<br>期待在恆春與您相遇</span><span class="en">We've received your info.<br>Looking forward to meeting you in Hengchun!</span></p>
 
     <div style="margin-top:28px">
-      <a href="#guideSection" onclick="document.getElementById('guideSection').style.display='block'" id="guideBtn" class="btn" style="text-decoration:none;text-align:center;">
+      <a href="#guideSection" onclick="document.getElementById('guideSection').style.display='block';document.body.classList.add('guide-open')" id="guideBtn" class="btn" style="text-decoration:none;text-align:center;">
         <span class="zh">📋 前往入住指引</span>
         <span class="en">📋 View Self Check-in Guide</span>
       </a>
@@ -756,6 +757,7 @@ document.getElementById('checkinForm').addEventListener('submit', e => {
   setTimeout(() => {
     const gs = document.getElementById('guideSection');
     gs.style.display = 'block';
+    document.body.classList.add('guide-open');
     gs.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, 1200);
 });
@@ -1082,6 +1084,7 @@ function toggleLang() {
     if (_alreadyDone) {
       document.getElementById("formWrap").style.display = "none";
       document.getElementById("guideSection").style.display = "block";
+      document.body.classList.add('guide-open');
     }
 
 
