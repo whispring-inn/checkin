@@ -550,8 +550,12 @@ body:not(.en) .en-block{display:none}
         <div style="font-size:.78em;font-weight:700;letter-spacing:.08em;color:rgba(26,18,8,0.4);margin-bottom:8px">
           <span class="zh">⚠ 住宿規範</span><span class="en">⚠ HOUSE RULES</span>
         </div>
-        <div style="border-radius:10px;overflow:hidden;margin-bottom:12px">
+        <div style="border-radius:10px;overflow:hidden;margin-bottom:12px;cursor:zoom-in" onclick="document.getElementById('rulesModal').style.display='flex'">
           <img src="rules.png" alt="住宿規範 House Rules" style="width:100%;display:block">
+        </div>
+        <!-- lightbox -->
+        <div id="rulesModal" onclick="this.style.display='none'" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999;align-items:center;justify-content:center;padding:16px">
+          <img src="rules.png" alt="住宿規範 House Rules" style="max-width:100%;max-height:100%;border-radius:8px;object-fit:contain">
         </div>
         <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:.88em;color:rgba(26,18,8,0.75)">
           <input type="checkbox" id="rulesCheck" required style="margin-top:3px;accent-color:#d7a52d;flex-shrink:0">
