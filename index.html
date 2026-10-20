@@ -1105,7 +1105,11 @@ function toggleLang() {
     document.querySelectorAll('#guide-nav .nav-pill').forEach(btn => {
       btn.addEventListener('click', () => {
         const el = document.getElementById(btn.dataset.target);
-        if(el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if(el) {
+          const navH = document.getElementById('guide-nav').offsetHeight;
+          const top = el.getBoundingClientRect().top + window.scrollY - navH - 8;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
       });
     });
 
