@@ -139,10 +139,11 @@ select.fi option[value=""]{color:rgba(26,18,8,0.22);font-size:15px;}
 }
 
 /* Source grid */
-.src-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:2px}
-.src input{display:none}
+.src-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:2px;align-items:stretch}
+.src{height:100%}.src input{display:none}
 .src label{
   display:flex;align-items:center;gap:8px;
+  height:100%;box-sizing:border-box;
   padding:12px 14px;
   border:1.5px solid rgba(122,92,56,0.16);
   border-radius:7px;cursor:pointer;
