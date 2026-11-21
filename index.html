@@ -446,7 +446,7 @@ body:not(.en) .en-block{display:none}
       <div class="booking-pay-check" id="bookingPayCheck" style="display:none">
         <div class="bp-question">▪ <span class="zh">請問您是否已經完成付款？</span><span class="en">Have you completed payment?</span></div>
         <div style="background:#fff8e1;border-left:4px solid #f9a825;border-radius:6px;padding:10px 14px;margin:8px 0;font-size:.85em;color:#7a5c00;line-height:1.6">
-          <span class="zh" style="color:#e00000;font-weight:700">注意：請務必依照以下指示完成付款！您訂房所填信用卡「只作擔保用，不會自動扣款！」</span><span class="en">Note: The credit card provided at booking is for guarantee only — no automatic charge will be made. Please complete payment as instructed ❗</span>
+          <span class="zh" style="color:#e00000;font-weight:700">注意：請務必依照以下指示完成付款！您訂房所填信用卡「只作擔保用，不會自動扣款！」</span><span class="en" style="color:#e00000;font-weight:700">Important: Please follow the payment instructions below. The credit card on file is for guarantee purposes only — you will not be charged automatically.</span>
         </div>
         <div class="bp-options">
           <label class="bp-opt" id="bpOptPaid" onclick="selectBpOpt('paid')">
@@ -454,9 +454,9 @@ body:not(.en) .en-block{display:none}
             <span class="bp-ic">✅</span><span class="zh">已完成匯款</span><span class="en">Transfer Complete</span>
           </label>
           <div id="bpLastFiveWrap" style="display:none;margin:4px 0 6px;background:#fffbf0;border:1.5px solid #d7a52d;border-radius:8px;padding:10px 12px">
-            <div style="font-size:.8em;font-weight:600;color:#a07820;margin-bottom:6px">▪ 請輸入您的匯款後五碼</div>
+            <div style="font-size:.8em;font-weight:600;color:#a07820;margin-bottom:6px"><span class="zh">▪ 請輸入您的匯款後五碼</span><span class="en">▪ Enter the last 5 digits of your transfer</span></div>
             <input type="text" id="bpLastFive" maxlength="5" inputmode="numeric"
-              class="zh" placeholder="例：12345"
+              placeholder="12345"
               style="width:100%;box-sizing:border-box;border:1.5px solid #d7a52d;border-radius:6px;padding:9px 12px;font-size:16px;font-family:inherit;color:var(--INK);letter-spacing:4px;text-align:center">
           </div>
           <label class="bp-opt" id="bpOptTransfer" onclick="selectBpOpt('transfer')">
@@ -472,10 +472,10 @@ body:not(.en) .en-block{display:none}
         <div class="bp-alert" id="bpTransferMsg" style="display:none">
           <div class="bp-alert-icon">▪</div>
           <div>
-            <div class="bp-alert-title"><span class="zh">台灣 Booking.com 目前不支援線上直接扣款！</span><span class="en">Taiwan Booking.com does not support direct online payment!</span></div>
+            <div class="bp-alert-title"><span class="zh">台灣 Booking.com 目前不支援線上直接扣款！</span><span class="en">Booking.com does not process payments directly for reservations in Taiwan.</span></div>
             <div class="bp-alert-text">
               <span class="zh">房費請您先以「轉帳」的方式轉入以下收款帳號：</span><span class="en">Please transfer the room fee to the account below:</span><br><br>
-              🏦 台新銀行 (812) &nbsp;28881004517240（戶名: 楊○彥）<br><br>
+              🏦 台新銀行 (812) &nbsp;28881004517240（戶名：楊○彥）<br><br>
               <span class="zh"><strong>請依訂單上的確切金額完成匯款並私訊通知我們 → 回來完成線上登記</strong></span><span class="en"><strong>Transfer the exact amount &amp; DM us to confirm → Return here to complete Online check-in</strong></span>
             </div>
           </div>
@@ -484,11 +484,11 @@ body:not(.en) .en-block{display:none}
         <div class="bp-alert" id="bpCardMsg" style="display:none">
           <div class="bp-alert-icon">▪</div>
           <div>
-            <div class="bp-alert-title"><span class="zh">台灣 Booking.com 目前不支援線上直接扣款！</span><span class="en">Taiwan Booking.com does not support direct online payment!</span></div>
+            <div class="bp-alert-title"><span class="zh">台灣 Booking.com 目前不支援線上直接扣款！</span><span class="en">Booking.com does not process payments directly for reservations in Taiwan.</span></div>
 
             <div class="bp-alert-text">
               <span class="zh">如需刷卡服務請先私訊告知</span><span class="en">Please DM us first</span>
-              &nbsp;→&nbsp;<span class="zh">完成線上登記</span><span class="en">Complete Online check-in</span>
+              &nbsp;→&nbsp;<span class="zh">完成線上登記</span><span class="en">Complete Online Check-in</span>
               &nbsp;→&nbsp;<span class="zh">與我們約定時間於現場辦理刷卡<strong>（現場刷卡服務時間為 15:00 ～ 18:00）</strong></span><span class="en">We'll arrange on-site card payment with you <strong>(15:00 – 18:00)</strong></span>
             </div>
           </div>
@@ -496,10 +496,10 @@ body:not(.en) .en-block{display:none}
         <div class="bp-alert" id="bpUnpaidMsg" style="display:none">
           <div class="bp-alert-icon">▪</div>
           <div>
-            <div class="bp-alert-title"><span class="zh">台灣 Booking.com 目前不支援線上直接扣款！</span><span class="en">Taiwan Booking.com does not support direct online payment!</span></div>
+            <div class="bp-alert-title"><span class="zh">台灣 Booking.com 目前不支援線上直接扣款！</span><span class="en">Booking.com does not process payments directly for reservations in Taiwan.</span></div>
             <div class="bp-alert-text">
               <span class="zh">房費請您先以「轉帳」的方式轉入以下收款帳號：</span><span class="en">Please transfer the room fee to the account below:</span><br><br>
-              🏦 台新銀行 (812) &nbsp;28881004517240（戶名: 楊○彥）<br><br>
+              🏦 台新銀行 (812) &nbsp;28881004517240（戶名：楊○彥）<br><br>
               <span class="zh">請依訂單上的確切金額匯款，完成後麻煩私訊告知我們，以便核對確認哦～</span><span class="en">Please transfer the exact amount. DM us after transfer for verification.</span><br><br>
               <span class="zh">如需刷卡服務請私訊告知，我們將與您約定時間於現場辦理（現場刷卡服務時間為 15:00 ～ 18:00）</span><span class="en">For card payment, please DM us. On-site card service: 15:00 – 18:00.</span>
             </div>
@@ -519,9 +519,9 @@ body:not(.en) .en-block{display:none}
             <span class="bp-ic">✅</span><span class="zh">已完成付款</span><span class="en">Payment Complete</span>
           </label>
           <div id="opLastFiveWrap" style="display:none;margin:4px 0 6px;background:#fffbf0;border:1.5px solid #d7a52d;border-radius:8px;padding:10px 12px">
-            <div style="font-size:.8em;font-weight:600;color:#a07820;margin-bottom:6px">▪ 請輸入您的匯款後五碼</div>
+            <div style="font-size:.8em;font-weight:600;color:#a07820;margin-bottom:6px"><span class="zh">▪ 請輸入您的匯款後五碼</span><span class="en">▪ Enter the last 5 digits of your transfer</span></div>
             <input type="text" id="opLastFive" maxlength="5" inputmode="numeric"
-              class="zh" placeholder="例：12345"
+              placeholder="12345"
               style="width:100%;box-sizing:border-box;border:1.5px solid #d7a52d;border-radius:6px;padding:9px 12px;font-size:16px;font-family:inherit;color:var(--INK);letter-spacing:4px;text-align:center">
           </div>
           <label class="bp-opt" id="opOptTransfer" onclick="selectOpOpt('transfer')">
@@ -540,7 +540,7 @@ body:not(.en) .en-block{display:none}
             <div class="bp-alert-title"><span class="zh">請以轉帳方式完成付款</span><span class="en">Please complete payment via bank transfer</span></div>
             <div class="bp-alert-text">
               <span class="zh">房費請您先以「轉帳」的方式轉入以下收款帳號：</span><span class="en">Please transfer the room fee to the account below:</span><br><br>
-              🏦 台新銀行 (812) &nbsp;28881004517240（戶名: 楊○彥）<br><br>
+              🏦 台新銀行 (812) &nbsp;28881004517240（戶名：楊○彥）<br><br>
               <span class="zh"><strong>請依訂單上的確切金額完成匯款並私訊通知我們 → 回來完成線上登記</strong></span><span class="en"><strong>Transfer the exact amount &amp; DM us to confirm → Return here to complete Online check-in</strong></span>
             </div>
           </div>
@@ -552,7 +552,7 @@ body:not(.en) .en-block{display:none}
             <div class="bp-alert-title"><span class="zh">現場刷卡服務說明</span><span class="en">On-site Card Payment</span></div>
             <div class="bp-alert-text">
               <span class="zh">如需刷卡服務請先私訊告知</span><span class="en">Please DM us first</span>
-              &nbsp;→&nbsp;<span class="zh">完成線上登記</span><span class="en">Complete Online check-in</span>
+              &nbsp;→&nbsp;<span class="zh">完成線上登記</span><span class="en">Complete Online Check-in</span>
               &nbsp;→&nbsp;<span class="zh">與我們約定時間於現場辦理刷卡<strong>（現場刷卡服務時間為 15:00 ～ 18:00）</strong></span><span class="en">We'll arrange on-site card payment with you <strong>(15:00 – 18:00)</strong></span>
             </div>
           </div>
@@ -620,7 +620,7 @@ body:not(.en) .en-block{display:none}
     </div>
     <div style="font-size:14px;color:var(--MU);line-height:1.7;margin-bottom:10px">
       <span class="zh">歡迎直接透過訂房平台私訊，或加入我們官方 LINE 詢問：</span>
-      <span class="en">Feel free to DM us via your booking platform, or reach us on LINE：</span>
+      <span class="en">Feel free to DM us on your booking platform, or message us on LINE：</span>
     </div>
     <a href="https://lin.ee/PaHFc84" target="_blank"
        style="display:inline-flex;align-items:center;background:#07b53b;color:#fff;border-radius:8px;padding:7px 16px;font-size:14px;font-weight:600;text-decoration:none;letter-spacing:.3px">
@@ -631,7 +631,7 @@ body:not(.en) .en-block{display:none}
   <!-- Tags -->
   <div class="tag-row" style="margin-top:24px;padding-top:20px;border-top:1px solid #f0ebe3">
 
-    <span class="tag"><span class="zh">🐱 貓管家不定時上工（私訊我們如果您特別想見到他們！）</span><span class="en">🐱 Our cat concierge is on duty occasionally — DM us to arrange a meet!</span></span>
+    <span class="tag"><span class="zh">🐱 貓管家不定時上工（私訊我們如果您特別想見到他們！）</span><span class="en">🐱 Our cat concierge is on duty occasionally — DM us if you'd like to meet them!</span></span>
   </div>
 
   <!-- Social Links -->
@@ -903,7 +903,7 @@ function toggleLang() {
   <div class="card">
     <div class="park-item">
       <div class="park-title">▪ <span class="zh">民宿門口車位</span><span class="en">Inn Entrance Spot</span></div>
-      <div class="park-desc"><span class="zh">門口車庫提供一個車位，先到先停無法預約保留<strong style="color:#e00000">（注意：側邊空地格線為私人車位，請勿占用！）</strong>建議可先至民宿門口下人員行李，如無空位再至以下圖示位置停放：</span><span class="en">One garage spot available — first-come first-served, cannot be reserved.<br>❗Note: The side lot markings are private spaces — please do not use them.<br>We suggest dropping off passengers/luggage at the entrance first. If the spot is taken, please park at the locations below:</span></div>
+      <div class="park-desc"><span class="zh">門口車庫提供一個車位，先到先停無法預約保留<strong style="color:#e00000">（注意：側邊空地格線為私人車位，請勿占用！）</strong>建議可先至民宿門口下人員行李，如無空位再至以下圖示位置停放：</span><span class="en">One garage spot — first-come, first-served. <strong style="color:#e00000">(Side lot markings are private — do not park there.)</strong> Drop off luggage at the entrance first; if full, use the spots below:</span></div>
     </div>
     <div class="park-item">
       <div class="park-title">▪ <span class="zh">南方餃子館旁白線（免費）</span><span class="en">White Line by 南方餃子館 (Free)</span></div>
@@ -939,7 +939,7 @@ function toggleLang() {
     <div class="code-big" id="door">—</div>
     <div class="code-hint">
       <span class="zh">輸入完畢後按 <strong>#</strong> 確認 · 入住後可用房卡感應進出</span>
-      <span class="en">Press <strong>#</strong> to confirm · After check-in, use room card to access</span>
+      <span class="en">Press <strong>#</strong> to confirm · After check-in, use your room card to access</span>
     </div>
     <div class="note" style="margin-top:10px">
       <span class="zh">⚠️進門前請先在大門<strong>左側鞋櫃</strong>換上室內拖鞋，再輸入密碼進入。</span>
@@ -1038,9 +1038,9 @@ function toggleLang() {
       <span class="en">For guests staying multiple nights, please note:</span>
     </p>
     <div class="rule"><span class="rule-icon">▪</span><span><span class="zh">住宿期間<strong>不進房</strong>提供清掃服務。</span><span class="en">We do <strong>not</strong> provide in-room housekeeping.</span></span></div>
-    <div class="rule"><span class="rule-icon">▪</span><span><span class="zh">衛生紙、洗沐浴乳或毛巾等備品如用完，歡迎至二樓走道架上取用。</span><span class="en">If toiletries, shower gel, or towels run out, feel free to help yourself from the shelf on the 2nd floor hallway.</span></span></div>
+    <div class="rule"><span class="rule-icon">▪</span><span><span class="zh">衛生紙、洗沐浴乳或毛巾等備品如用完，歡迎至二樓走道架上取用。</span><span class="en">If toiletries, shower gel, or towels run out, feel free to help yourself from the shelf in the 2nd floor hallway.</span></span></div>
     <div class="rule"><span class="rule-icon">▪</span><span><span class="zh">房內垃圾如已放滿請集中打包，丟置於室外垃圾桶。<br>替換用垃圾袋也可於二樓備品區取得。</span><span class="en">When your bin is full, bag the trash and dispose of it in the outdoor bin. Replacement bags are also available in the 2nd floor supply area.</span></span></div>
-    <div class="rule"><span class="rule-icon">▪</span><span><span class="zh">公共空間有飲水機與製冰機；廚房<strong>不開放</strong>使用。</span><span class="en">Water dispenser and ice maker in common area; kitchen is <strong>not open</strong>.</span></span></div>
+    <div class="rule"><span class="rule-icon">▪</span><span><span class="zh">公共空間有飲水機與製冰機；廚房<strong>不開放</strong>使用。</span><span class="en">Water dispenser and ice maker in common area; kitchen is <strong>off-limits</strong>.</span></span></div>
     <div class="rule"><span class="rule-icon">▪</span><span><span class="zh">民宿無提供洗衣服務。最近自助洗衣店距離 200 公尺內：</span><span class="en">No laundry service. Nearest laundromat within 200m:</span><br><a class="map-link" href="https://maps.app.goo.gl/EgybM2bTXRRzw4cz6" target="_blank">Google Maps</a></span></div>
     <div class="rule"><span class="rule-icon">▪</span><span><span class="zh">附近電動自行車租借：</span><span class="en">E-bike rental nearby:</span><br><a class="map-link" href="https://maps.app.goo.gl/SMg4QhmmZ5xXYE7PA" target="_blank">Google Maps</a></span></div>
   </div>
@@ -1049,7 +1049,7 @@ function toggleLang() {
   <div class="card">
     <p style="font-size:.88em;color:#666;line-height:1.8;margin-bottom:12px">
       <span class="zh">嗨！以下是我們平常也很愛吃的美食店家清單～可以參考一下😄</span>
-      <span class="en">Hey! Here's a list of our favourite local spots — hope you enjoy them too! ▪</span>
+      <span class="en">Hey! Here's a list of our favourite local spots — hope you enjoy them too!</span>
     </p>
     <a href="https://maps.app.goo.gl/ph1QSzBXdvs6XBzQ6" target="_blank"
        style="display:inline-flex;align-items:center;gap:6px;background:#4285f4;color:#fff;border-radius:8px;padding:8px 16px;font-size:13px;font-weight:600;text-decoration:none">
