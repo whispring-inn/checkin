@@ -717,7 +717,7 @@ document.getElementById('checkinForm').addEventListener('submit', e => {
   let paymentLabel = "-";
   if (src === "booking") {
     const bpLastFiveVal = document.getElementById('bpLastFive')?.value?.trim();
-    if (bpVal === "paid")     paymentLabel = "轉帳（" + (bpLastFiveVal || "-") + "）";
+    if (bpVal === "paid")     paymentLabel = "轉帳(" + (bpLastFiveVal || "-") + ")";
     else if (bpVal === "transfer") paymentLabel = "轉帳";
     else if (bpVal === "card")    paymentLabel = "現場刷卡";
   } else if (src === "airbnb") {
@@ -728,7 +728,7 @@ document.getElementById('checkinForm').addEventListener('submit', e => {
     const opVal = document.querySelector('input[name="opStatus"]:checked')?.value;
     const opLastFiveVal = document.getElementById('opLastFive')?.value?.trim();
     if (opVal === "card")          paymentLabel = "現場刷卡";
-    else if (opVal === "paid")     paymentLabel = "轉帳（" + (opLastFiveVal || "-") + "）";
+    else if (opVal === "paid")     paymentLabel = "轉帳(" + (opLastFiveVal || "-") + ")";
     else if (opVal === "transfer") paymentLabel = "轉帳";
     else                            paymentLabel = "其它";
   }
