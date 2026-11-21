@@ -450,11 +450,11 @@ body:not(.en) .en-block{display:none}
           <span class="zh" style="color:#e00000;font-weight:700">注意：請務必依照以下指示完成付款！您訂房所填信用卡「只作擔保用，不會自動扣款！」</span><span class="en" style="color:#e00000;font-weight:700">Important: Please follow the payment instructions below. The credit card on file is for guarantee purposes only — you will not be charged automatically.</span>
         </div>
         <div class="bp-options">
-          <label class="bp-opt" id="bpOptPaid" onclick="selectBpOpt('paid')">
+          <label class="bp-opt" id="bpOptPaid" for="bpPaid" onclick="selectBpOpt('paid')">
             <input type="radio" name="bpStatus" id="bpPaid" value="paid">
             <span class="bp-ic">✅</span><span class="zh">已完成匯款</span><span class="en">Transfer Complete</span>
           </label>
-          <div id="bpLastFiveWrap" style="display:none;margin:4px 0 6px;background:#fffbf0;border:1.5px solid #d7a52d;border-radius:8px;padding:10px 12px">
+          <div id="bpLastFiveWrap" style="display:none;margin:-6px 0 6px;padding:12px 14px 10px;background:rgba(122,92,56,0.05);border:1.5px solid var(--BR);border-top:none;border-radius:0 0 7px 7px">
             <div style="font-size:.8em;font-weight:600;color:#a07820;margin-bottom:6px"><span class="zh">請輸入您的匯款後五碼：</span><span class="en">Enter the last 5 digits of your transfer:</span></div>
             <input type="text" id="bpLastFive" maxlength="5" inputmode="numeric"
               placeholder="_ _ _ _ _"
@@ -515,16 +515,11 @@ body:not(.en) .en-block{display:none}
       <div class="booking-pay-check" id="otherPayCheck" style="display:none">
         <div class="bp-question">▪ <span class="zh">請問您是否已經完成付款？</span><span class="en">Have you completed payment?</span></div>
         <div class="bp-options">
-          <label class="bp-opt" id="opOptPaid" onclick="selectOpOpt('paid')">
+          <label class="bp-opt" id="opOptPaid" for="opPaid" onclick="selectOpOpt('paid')">
             <input type="radio" name="opStatus" id="opPaid" value="paid">
             <span class="bp-ic">✅</span><span class="zh">已完成付款</span><span class="en">Payment Complete</span>
           </label>
-          <div id="opLastFiveWrap" style="display:none;margin:4px 0 6px;background:#fffbf0;border:1.5px solid #d7a52d;border-radius:8px;padding:10px 12px">
-            <div style="font-size:.8em;font-weight:600;color:#a07820;margin-bottom:6px"><span class="zh">請輸入您的匯款後五碼：</span><span class="en">Enter the last 5 digits of your transfer:</span></div>
-            <input type="text" id="opLastFive" maxlength="5" inputmode="numeric"
-              placeholder="_ _ _ _ _"
-              style="width:100%;box-sizing:border-box;border:1.5px solid #d7a52d;border-radius:6px;padding:9px 12px;font-size:16px;font-family:inherit;color:var(--INK);letter-spacing:4px;text-align:center">
-          </div>
+
           <label class="bp-opt" id="opOptTransfer" onclick="selectOpOpt('transfer')">
             <input type="radio" name="opStatus" id="opTransfer" value="transfer">
             <span class="bp-ic">⚠️</span><span class="zh">尚未付款 → 線上轉帳</span><span class="en">Not Yet Paid → Bank Transfer</span>
@@ -727,9 +722,8 @@ document.getElementById('checkinForm').addEventListener('submit', e => {
     paymentLabel = "官網直訂";
   } else if (src === "other") {
     const opVal = document.querySelector('input[name="opStatus"]:checked')?.value;
-    const opLastFiveVal = document.getElementById('opLastFive')?.value?.trim();
     if (opVal === "card")          paymentLabel = "現場刷卡";
-    else if (opVal === "paid")     paymentLabel = "轉帳(" + (opLastFiveVal || "-") + ")";
+    else if (opVal === "paid")     paymentLabel = "已付款";
     else if (opVal === "transfer") paymentLabel = "轉帳";
     else                            paymentLabel = "其它";
   }
@@ -801,6 +795,8 @@ function selectBpOpt(val) {
   bpCardMsg.style.display     = val === 'card'     ? 'flex'  : 'none';
   bpPaidMsg.style.display     = val === 'paid'     ? 'block' : 'none';
   bpLastFiveWrap.style.display = val === 'paid' ? 'block' : 'none';
+  const bpPaidLabel = document.getElementById('bpOptPaid');
+  if (bpPaidLabel) { bpPaidLabel.style.borderBottomLeftRadius = val === 'paid' ? '0' : ''; bpPaidLabel.style.borderBottomRightRadius = val === 'paid' ? '0' : ''; bpPaidLabel.style.borderBottom = val === 'paid' ? 'none' : ''; }
   bpLastFive.required = val === 'paid';
   if (val !== 'paid') bpLastFive.value = '';
   submitBtn.disabled = val === 'transfer';
@@ -812,8 +808,6 @@ const opTransferMsg  = document.getElementById('opTransferMsg');
 const opCardMsg      = document.getElementById('opCardMsg');
 const opPaidMsg      = document.getElementById('opPaidMsg');
 
-const opLastFiveWrap = document.getElementById('opLastFiveWrap');
-const opLastFive     = document.getElementById('opLastFive');
 
 function selectOpOpt(val) {
   ['Paid','Transfer','Card'].forEach(id => {
@@ -826,9 +820,7 @@ function selectOpOpt(val) {
   opTransferMsg.style.display = val === 'transfer' ? 'flex'  : 'none';
   opCardMsg.style.display     = val === 'card'     ? 'flex'  : 'none';
   opPaidMsg.style.display     = val === 'paid'     ? 'block' : 'none';
-  opLastFiveWrap.style.display = val === 'paid' ? 'block' : 'none';
-  opLastFive.required = val === 'paid';
-  if (val !== 'paid') opLastFive.value = '';
+
   submitBtn.disabled = val === 'transfer';
 }
 
